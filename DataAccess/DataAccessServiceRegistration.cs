@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Application.Services.Repositories;
+using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,12 @@ public static class DataAccessServiceRegistration
 
         services.AddScoped<IProductDal, EfProductDal>();
         services.AddScoped<ICategoryDal, EfCategoryDal>();
+       
+        services.AddScoped<IUserDal, EfUserDal>();
+        services.AddScoped<IOperationClaimDal, EfOperationClaimDal>();
+        services.AddScoped<IUserOperationClaimDal, EfUserOperationClaimDal>();
+        services.AddScoped<IRefreshTokenDal, EfRefreshTokenDal>();
+       
 
 
         return services;

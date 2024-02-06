@@ -4,6 +4,7 @@ using Core.CrossCuttingConcerns.Logging;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.DependencyResolvers;
+using Core.Security;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddBusinessServices();
 builder.Services.AddDependencyResolvers();
+builder.Services.AddSecurityServices();
 
 var app = builder.Build();
 
