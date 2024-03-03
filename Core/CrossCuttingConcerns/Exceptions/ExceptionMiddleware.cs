@@ -1,9 +1,13 @@
-﻿using Core.CrossCuttingConcerns.Exceptions.Handlers;
+﻿using Azure;
+using Core.CrossCuttingConcerns.Exceptions.Handlers;
 using Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.CrossCuttingConcerns.Logging.LoggingModels;
 using Core.CrossCuttingConcerns.Logging.Serilog;
 using Core.Helpers;
+using Core.Security.Entities;
+using Core.Security.Extensions;
+using Core.Security.JWT;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -22,7 +27,6 @@ namespace Core.CrossCuttingConcerns.Exceptions;
 public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly HttpExceptionHandler _httpExceptionHandler;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly LoggerServiceBase _loggerServiceBase;
 
@@ -31,14 +35,14 @@ public class ExceptionMiddleware
         _next = next;
         _httpContextAccessor = httpContextAccessor;
         _loggerServiceBase = loggerServiceBase;
-        _httpExceptionHandler = new HttpExceptionHandler();
+
     }
 
     public async Task InvokeAsync(HttpContext context)
     {
         try
-        {
-            await _next(context);
+        { 
+             await _next(context);
         }
         catch (Exception exception)
         {
@@ -121,15 +125,20 @@ public class ExceptionMiddleware
 
     private Task CreateInternalException(HttpContext context, Exception exception)
     {
+
+
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
 
-        return context.Response.WriteAsync(new ProblemDetails
+   
+        string details= JsonSerializer.Serialize(new ProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
             Type = "https://example.com/probs/internal",
             Title = "Internal exception",
             Detail = exception.Message,
             Instance = ""
-        }.ToString());
+        });
+
+        return context.Response.WriteAsync(details);
     }
 }

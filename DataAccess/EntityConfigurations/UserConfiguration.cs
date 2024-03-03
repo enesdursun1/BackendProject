@@ -32,39 +32,39 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasMany(u => u.RefreshTokens);
        
 
-        builder.HasData(getSeeds());
+        //builder.HasData(getSeeds());
 
 
     }
 
-    private IEnumerable<User> getSeeds()
-    {
-        List<User> users = new();
-        HashingHelper.CreatePasswordHash(
-            password: "passw0rd",
-            passwordHash: out byte[] passwordHash,
-            passwordSalt: out byte[] passwordSalt
-            );
+    //private IEnumerable<User> getSeeds()
+    //{
+    //    List<User> users = new();
+    //    HashingHelper.CreatePasswordHash(
+    //        password: "passw0rd",
+    //        passwordHash: out byte[] passwordHash,
+    //        passwordSalt: out byte[] passwordSalt
+    //        );
 
-        User adminUser = new()
-        {
-            Id = 1,
-            FirstName = "Admin",
-            LastName = "",
-            Email = "admin@admin.com",
-            Status = true,
-            PasswordHash = passwordHash,
-            PasswordSalt = passwordSalt
-
-
-
-        };
-        users.Add(adminUser);
+    //    User adminUser = new()
+    //    {
+    //        Id = 1,
+    //        FirstName = "Admin",
+    //        LastName = "",
+    //        Email = "admin@admin.com",
+    //        Status = true,
+    //        PasswordHash = passwordHash,
+    //        PasswordSalt = passwordSalt
 
 
-        return users.ToArray();
 
-    }
+    //    };
+    //    users.Add(adminUser);
+
+
+    //    return users.ToArray();
+
+    //}
 
 
 

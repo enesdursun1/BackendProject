@@ -5,8 +5,10 @@ using Business.Dtos.Responses.Product;
 using Business.Rules;
 using Business.ValidationRules.FluentValidation.Product;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
+using Core.CrossCuttingConcerns.Authorization;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 

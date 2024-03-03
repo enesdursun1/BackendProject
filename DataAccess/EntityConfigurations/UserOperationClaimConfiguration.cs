@@ -22,18 +22,18 @@ public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserOper
         builder.HasOne(u => u.User);
         builder.HasOne(u => u.OperationClaim);
 
-        builder.HasData(getSeeds());
+        //builder.HasData(getSeeds());
     }
 
-    private IEnumerable<UserOperationClaim> getSeeds()
-    {
-        List<UserOperationClaim> userOperationClaims = new();
+    //private IEnumerable<UserOperationClaim> getSeeds()
+    //{
+    //    List<UserOperationClaim> userOperationClaims = new();
 
-        UserOperationClaim adminUserOperationClaim = new(id: 1, userId: 1, operationClaimId: 1);
-        userOperationClaims.Add(adminUserOperationClaim);
+    //    UserOperationClaim adminUserOperationClaim = new(id: 1, userId: 1, operationClaimId: 1);
+    //    userOperationClaims.Add(adminUserOperationClaim);
 
-        return userOperationClaims.ToArray();
+    //    return userOperationClaims.ToArray();
 
-    }
+    //}
 
 }

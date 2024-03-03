@@ -9,9 +9,11 @@ using Core.CrossCuttingConcerns.Logging;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,7 @@ public class CategoryManager : ICategoryService
     private readonly ICategoryDal _categoryDal;
     private readonly IMapper _mapper;
     private readonly CategoryBusinessRules _categoryBusinessRules;
+
 
     public CategoryManager(ICategoryDal categoryDal, IMapper mapper, CategoryBusinessRules categoryBusinessRules)
     {
@@ -70,6 +73,7 @@ public class CategoryManager : ICategoryService
         return getByIdCategoryResponse;
     }
 
+   
     public async Task<IList<GetListCategoryResponse>> GetListAsync()
     {
         var data = await _categoryDal.GetListAsync();

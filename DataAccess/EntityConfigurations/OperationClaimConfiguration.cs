@@ -1,6 +1,7 @@
 ﻿using Core.Security.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection;
 
 namespace DataAccess.EntityConfigurations;
 
@@ -25,4 +26,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         builder.HasMany(u => u.UserOperationClaims);
 
     }
- }
+
+    
+}

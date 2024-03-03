@@ -9,6 +9,7 @@ using Business.ValidationRules.FluentValidation;
 using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Logging.Serilog;
 using Core.CrossCuttingConcerns.Logging.Serilog.Logger;
+using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.Contexts;
@@ -35,16 +36,19 @@ public static class BusinessServiceRegistration
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         services.AddScoped<IProductService, ProductManager>();
-
         services.AddScoped<ICategoryService, CategoryManager>();
+        services.AddScoped<IUserService, UserManager>();
+        services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
+        services.AddScoped<IOperationClaimService, OperationClaimManager>();
+        services.AddScoped<IAuthService, AuthManager>();
 
         services.AddScoped<ProductBusinessRules>();
         services.AddScoped<CategoryBusinessRules>();
+        services.AddScoped<AuthBusinessRules>();
+
 
        
 
-
-   
 
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
